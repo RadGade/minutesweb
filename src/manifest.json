@@ -1,0 +1,11 @@
+{
+    "name": "minutes",
+    "domain_name": "minutes://auth",
+    "start_url": "minutes://auth",
+    "description": "Decentralized video chat platform",
+    "icons": [{
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }]
+  }
