@@ -11,6 +11,7 @@ import Login  from './components/login';
 import Freinds from './components/freinds';
 import './components/css/App.css'
 import {Header} from './components/header'
+import {ChatCom} from "./components/chat-com";
 
 export class App extends Component {
   render() {
@@ -19,6 +20,7 @@ export class App extends Component {
       <Header />
         <Route exact path="/" component={Login}/>
         <Route exact path="/home" component={Freinds}/>
+        <Route exact path="/chat" component={ChatCom}/>
       </div>
     )
   }

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { createBrowserHistory } from 'history';
 import TextField from '@material-ui/core/TextField';
 import { useStyles } from './css/login-css'
+import {Link} from 'react-router-dom'
 import './css/App.css'
 import { Paper, Fade } from '@material-ui/core';
+const history = createBrowserHistory({forceRefresh:true});
 const Gun = require('gun');
 const SEA = require('gun/sea');
 var gun = Gun();
@@ -11,10 +14,12 @@ export const Search = () => {
 const classes = useStyles();
 const [uld, setUld] = useState(null);
 const [pub, setPub] = useState(null);
+const [name, setName] = useState(null);
 const [entered, setEntered] = useState(false);
-// useEffect(() => {
-//   console.log(uld)
-// }, [uld])
+useEffect(() => {
+  { pub && console.log(pub) }
+
+}, [pub])
 
 
 
@@ -39,20 +44,26 @@ const [entered, setEntered] = useState(false);
             margin="normal"
             
           />
+
           <Fade in={entered}>
           <Paper
           elevation={5}
           onClick = {() => {
-            setPub({pub : uld.uld})
-            console.log(uld.uld.pub)
+            var uid = uld.uld.pub
+            setPub({pub : uid})
+            sessionStorage.setItem("pub", uld.uld.pub)
+            sessionStorage.setItem("name", uld.uld.alias)
+            history.push('/chat')
           }}
           classes={{ 
             root: classes.searchRes
           }}
           >{ uld && <h1>{uld.uld.alias}</h1> }</Paper>
           </Fade>
+          
+          
          
-         <div>{pub && <h1>{pub.pub.pub}</h1>}</div>
+         
             </div>
         )
     

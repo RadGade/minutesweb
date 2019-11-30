@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import { useStyles } from './css/login-css'
 import Auth from '../logic/auth'
 import {Link} from 'react-router-dom'
+
 const Gun = require('gun');
 const SEA = require('gun/sea');
 
@@ -38,6 +39,12 @@ constructor(props) {
                 <Button
                 onClick={this.recall} type="submit" variant="contained"
                 >Recall</Button>
+                <Button
+                onClick={() => {
+                    sessionStorage.removeItem('name')
+                    window.location.reload()
+                }}type="submit" variant="contained"
+                >reset</Button>
                 <Search />
 
             </div>

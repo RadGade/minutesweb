@@ -76,4 +76,12 @@ export const useStyles = makeStyles({
       backgroundColor:'#ffff',
       
     },
+    talk : {
+      position: 'absolute',
+      bottom:'10%',
+      height: '30px',
+      left: '15%',
+      lineHeight: '30px',
+      width: '70%',
+    }
   });
