@@ -27,19 +27,14 @@ export const ChatCom = () => {
             label="Say hi 👋"
             type="text"
             margin="normal"
-            onKeyPress = {(event) => {
-                if (event.key === 'Enter') {
-                var tuid = myuid.put.alias
-                 var chatIn = document.getElementById("chatInput").value
-                 .then(gun.get('chat').on(function(data){console.log(data)}))
-                }
-              }} 
             classes={{
                 root: classes.talk
               }}
         />
-        <Button onClick ={() => Chat.send()}>Send</Button>
+        <Button onClick ={() => Chat.send().then(ack=>console.log(ack)).catch(err=>console.warn(err))}>Send</Button>
         <Button onClick ={() => Chat.get()}>Get</Button>
+        <div id="messages">
+        </div>
         </div>
     )
 }
