@@ -37,6 +37,12 @@ const Posts = () => {
         root: classes.post
       }}
       >Post</Button>
+      <Button
+      onClick = {() => PostsLogic.get()}
+      classes={{
+        root: classes.post
+      }}
+      >Get</Button>
       <ul id="posts">
        
       </ul>
