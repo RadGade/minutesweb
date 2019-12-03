@@ -1,5 +1,6 @@
 const Gun = require('gun');
 const SEA = require('gun/sea');
+var CryptoJS = require("crypto-js");
 var gun = Gun();
 // var me = gun.user() 
 var pub = JSON.parse(sessionStorage.getItem('data'))  //for some reason this says this undefined, plz take care of it future rishi.
@@ -13,6 +14,8 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
                 + currentdate.getMinutes() + ":" 
                 + currentdate.getSeconds();
 
+
+
   class Chat  {
 
 
@@ -22,16 +25,17 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
       console.log(input)
       console.log(datetime) 
       var input = document.getElementById('chatInput').value
+      var EncryptedInput = CryptoJS.SHA3(input, {outputLength: 512}) //may wanna look into this to see WordArray Object 
       let time = datetime
       let msg = {}
-      msg[time]=input
+      msg[time]=EncryptedInput
       gun.get("nasa/"  + PeerpubKey).get("outbox", function(data){console.log(data)}).put(msg, function(data){console.log(data)}) // This is what the other peer is listening in `.on` in get method
       gun.get("nasa/" + PeerpubKey).get("letters", function(data){console.log(data)}).put(msg , function(data){console.log(data)}) // Store my sent messages in nasa/counterpart.letters, This is for your DOM printing - a list 
       console.log(msg)
       return Promise.resolve('Letters Sent')
     }
 
-    async get(){ 
+    async get(){
       var mypubKey = pub.put.pub
       var other = {}
       //utility function to get once all messages for pubkey who   alice - 13 bob - 14
