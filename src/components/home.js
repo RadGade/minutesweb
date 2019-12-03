@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import './css/App.css'
-import {Search} from './search'
-import Button from '@material-ui/core/Button';
+import Freinds from './freinds'
+import {Button} from '@material-ui/core';
 import { useStyles } from './css/login-css'
 import Auth from '../logic/auth'
 import {Link} from 'react-router-dom'
-
+import Posts from './posts'
 const Gun = require('gun');
 const SEA = require('gun/sea');
 
 var gun = Gun();
 var user = gun.user() 
-class Freinds extends Component {
+class Home extends Component {
 
 constructor(props) {
     super(props)
@@ -22,7 +22,6 @@ constructor(props) {
     }
 }
 
-
 // when user logs in I encrypt and save the ack of the user in their machine and 
 //whenever I need to access the info I decrypt it and use it
 
@@ -30,16 +29,20 @@ constructor(props) {
         var name = JSON.parse(this.name)
         console.log(name)
         return (
-
-            <div className="freinds"> 
-                <Search />
+            <div> 
+                <h1 className="welcome"> Welcome {name.put.alias}</h1>
+                 <Button
+                onClick={() => Auth.signout()} type="submit" variant="contained"
+                >Logout</Button>
+                <Posts />
+                <Freinds />
 
             </div>
         )
     }
 }
 
-export default Freinds
+export default Home
 
 
 //use recall to get the user info  

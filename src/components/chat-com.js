@@ -12,15 +12,11 @@ export const ChatCom = () => {
     var uid = sessionStorage.getItem('data')
     var myuid = JSON.parse(uid)
     const classes = useStyles();
-
+useEffect(Chat.getToDom)
     return (
         <div>
         { pub && <h1>{pub}</h1> }
-<Paper>
-<Typography component="p">
 
-</Typography>
-</Paper>
         
         <TextField 
             id = "chatInput"
@@ -32,9 +28,11 @@ export const ChatCom = () => {
               }}
         />
         <Button onClick ={() => Chat.send().then(ack=>console.log(ack)).catch(err=>console.warn(err))}>Send</Button>
-        <Button onClick ={() => Chat.get()}>Get</Button>
-        <div id="messages">
-        </div>
+        <Button onClick ={() => Chat.getToDom()}>Get</Button>
+
+<ul id ="messages">
+              
+</ul>
         </div>
     )
 }

@@ -63,7 +63,7 @@ export const useStyles = makeStyles({
         marginTop: '15%',
         height: '30px',
         lineHeight: '30px',
-        width: '70%',
+        width: '50%', 
       },
     label: {
       textTransform: 'capitalize',
@@ -83,5 +83,30 @@ export const useStyles = makeStyles({
       left: '15%',
       lineHeight: '30px',
       width: '70%',
+    },
+
+    listenMe: {
+      position: 'absolute',
+      width: '10%',
+      height: 'auto',
+      bottom: '30%',
+      marginBottom: '5%',
+      left : '5%'
+    }, 
+    postInput: {
+      top: '50%',
+      marginTop: '10%',
+      height: '30px',
+      lineHeight: '30px',
+      width: '70%', 
+    },
+    post: {
+      marginTop: '10.5%',
+      marginLeft: '2%',
+      background: 'linear-gradient(to right, #ff00cc, #333399)',
+      borderRadius: 8,
+      border: 0,
+      color: 'white',
+      fontWeight: '600',
     }
   });

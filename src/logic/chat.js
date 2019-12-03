@@ -2,7 +2,7 @@ const Gun = require('gun');
 const SEA = require('gun/sea');
 var gun = Gun();
 // var me = gun.user() 
-var pub = JSON.parse(sessionStorage.getItem('data'))  //for some reason this says this undefined, plz take care of it future rishi.
+var pub = JSON.parse(sessionStorage.getItem('data'))  //for some reason this says this undefined, plz take care of it future rishi. //don't worry past rishi
 
 var PeerpubKey = sessionStorage.getItem('pub') //other peer's pub key
 var currentdate = new Date()
@@ -16,18 +16,26 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
   class Chat  {
 
 
+    constructor(){
+      this.peerChat = []
+      this.myChat = []
+      this.newChat = ""
+    }
+
     async send(){
       var input = document.getElementById('chatInput').value
       var me = gun.user() 
       console.log(input)
       console.log(datetime) 
-      var input = document.getElementById('chatInput').value
       let time = datetime
       let msg = {}
       msg[time]=input
-      gun.get("nasa/"  + PeerpubKey).get("outbox", function(data){console.log(data)}).put(msg, function(data){console.log(data)}) // This is what the other peer is listening in `.on` in get method
-      gun.get("nasa/" + PeerpubKey).get("letters", function(data){console.log(data)}).put(msg , function(data){console.log(data)}) // Store my sent messages in nasa/counterpart.letters, This is for your DOM printing - a list 
+      gun.get("nasa/"  + PeerpubKey).get("outbox",(data) => {console.log(data)}).put(msg, (data) => {console.log(data)}) // This is what the other peer is listening in `.on` in get method
+      gun.get("nasa/" + PeerpubKey).get("letters",(data) => {console.log(data)}).put(msg , (data) => {console.log(data)}) // Store my sent messages in nasa/counterpart.letters, This is for your DOM printing - a list 
       console.log(msg)
+      var newLetter = document.createTextNode(this.myChat);
+      var currentDiv = document.getElementById("messages"); 
+      currentDiv.appendChild(newLetter)
       return Promise.resolve('Letters Sent')
     }
 
@@ -35,19 +43,18 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
       var mypubKey = pub.put.pub
       var other = {}
       //utility function to get once all messages for pubkey who   alice - 13 bob - 14
-      return gun.get("nasa/"+mypubKey).get('outbox').map().on((data) => {console.log(data)}, true).then(console.log(other));
+      return gun.get("nasa/"+mypubKey).get('outbox').map().on((data) => {this.peerChat.push(data)}, {change : true}).then(console.log(this.peerChat));
     }
 
-    async getToDom(from){
-      var container = document.getElementById('#messageList');
-      const me = gun.user();
-      const fromUser = await gun.user(from).once();
-      me.get('nasa/'+from).get("letters").map().on((letter) => {
-        // insert to dom via createElement or something 
-        console.log("fromUser.alias equals to letter.from", letter.from == fromUser.alias); // maybe hilight other users text
-        console.log("letter from is my alias?", me.is.alias == letter.from) // maybe do stuff with it, like enable editing?  
-        console.log("from", letter.from, "to", letter.to, "input", letter.input,"time", letter.time);
-      })
+     getToDom(){
+      var mypubKey = pub.put.pub
+      var newChat = ""
+      gun.get("nasa/"+ mypubKey).get('outbox').map().on((data) => {newChat = data})
+      console.log(newChat)
+      var node = document.createElement('li')
+      var newLetter = document.createTextNode(newChat);
+      node.appendChild(newLetter)
+      document.getElementById('messages').appendChild(node) 
     }
 
   }

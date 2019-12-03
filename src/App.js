@@ -8,7 +8,7 @@ import {
   useLocation
 } from "react-router-dom";
 import Login  from './components/login';
-import Freinds from './components/freinds';
+import Home from './components/home';
 import './components/css/App.css'
 import {Header} from './components/header'
 import {ChatCom} from "./components/chat-com";
@@ -19,7 +19,7 @@ export class App extends Component {
       <div>
       <Header />
         <Route exact path="/" component={Login}/>
-        <Route exact path="/home" component={Freinds}/>
+        <Route exact path="/home" component={Home}/>
         <Route exact path="/chat" component={ChatCom}/>
       </div>
     )
